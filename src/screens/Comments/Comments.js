@@ -42,12 +42,16 @@ class Comments extends Component {
     }
 render() {
     return (
-        <View>
+        <View style={styles.contenedor}>
+            {console.log(this.props)}
             <Text>Comments: </Text>
 
             <FlatList data={this.state.commentsArr} keyExtractor={item=> item.createdAt.toString()} renderItem={({item})=> 
-            <View style={styles.contenedorComment}><Text style={styles.comentariosInput}>{item.comment}</Text><Text style={styles.commentOwner}>{item.owner}</Text></View>}
-            />
+                <View style={styles.contenedorComment}>
+                    <Text style={styles.commentOwner}>{item.owner} dice: </Text>
+                    <Text style={styles.comentariosInput}>{item.comment}</Text>
+                </View>
+            }/>
 
             <View style={styles.contenedorInput}>
                 <TextInput placeholder='Ingrese comentario'
@@ -69,16 +73,29 @@ const styles = StyleSheet.create({
     input:{
         height: 35,
         borderWidth: 1,
-        marginTop: 100
+        marginTop: 100,
+        width: 300
     },
     contenedorInput:{
         display: 'flex',
-        alignContent: 'flex-start'
+        marginBottom: 30
     },
     contenedorComment:{
         borderWidth: 1,
         display: 'flex',
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        height: 60, 
+        width: 300,
+        marginBottom: 5,
+        borderRadius: 15,
+        backgroundColor: '#BDC3C7'
+    },
+    contenedor:{
+        backgroundColor: '#7F8C8D',
+        flex: 1,
+        display: 'flex' ,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 })

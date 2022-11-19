@@ -67,7 +67,8 @@ const styles = StyleSheet.create({
     },
     input:{
         borderWidth: 1,
-        marginBottom: 10
+        marginBottom: 10,
+        height: 35
     },
     titulo: {
         fontSize:20,

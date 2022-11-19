@@ -1,4 +1,4 @@
-import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
+/* import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import { auth } from '../../firebase/config'
 
@@ -45,3 +45,4 @@ const styles = StyleSheet.create({
         borderWidth: 1
     }
 })
+ */

@@ -53,12 +53,13 @@ export default Home
 const styles = StyleSheet.create({
     contenedor: {
         flex: 1,
-        backgroundColor:"#363636",
+        backgroundColor:"#696969",
     },
     titulo:{
         fontSize: 25,
         backgroundColor: '#474747',
-        textAlign:'center'
+        textAlign:'center',
+        height: 50
     },
     
 })

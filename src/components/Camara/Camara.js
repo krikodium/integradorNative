@@ -2,7 +2,7 @@ import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React, { Component } from 'react'
 import {Camera} from 'expo-camera'
 import {storage} from '../../firebase/config'
-
+import {FontAwesome} from '@expo/vector-icons'
 class Camara extends Component {
     constructor(props){
         super(props)
@@ -69,26 +69,25 @@ render() {
                     ref={metodosDelComponente => this.metodosDeCamara = metodosDelComponente}
                 />
                 <TouchableOpacity onPress={()=> this.tomarFoto()}>
-                    <Text style={styles.textos}>Tomar foto</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={()=> this.rechazarFoto()}>
-                    <Text style={styles.textos}>Cancelar foto</Text>
+                    <FontAwesome style={styles.textos} name='camera' size={32} color='black'/>
                 </TouchableOpacity>
             </View>
             
             : this.state.mostrarCamara === false && this.state.fotoUri !== '' ?
-            <>
+            <View style={styles.contenedorImagen}>
                 <Image
                     style={styles.image}
                     source={{uri: this.state.fotoUri}}
                 />
-                <TouchableOpacity onPress={()=> this.aceptarFoto(this.state.fotoUri)}>
-                    <Text style={styles.textos}>Aceptar</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={()=> this.rechazarFoto()}>
-                    <Text style={styles.textos}>Rechazar</Text>
-                </TouchableOpacity>
-            </> :
+                <View style={styles.vaono}>
+                    <TouchableOpacity onPress={()=> this.aceptarFoto(this.state.fotoUri)}>
+                        <FontAwesome name='thumbs-o-up' color='black' size={35} style={styles.textos}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=> this.rechazarFoto()}>
+                        <FontAwesome name='thumbs-o-down' color='black' size={35} style={styles.textos}/>
+                    </TouchableOpacity>
+                </View>
+            </View> :
             <Text>No tienes permiso para usar la Camara</Text>
         }
     </View>
@@ -102,19 +101,34 @@ const styles = StyleSheet.create({
     },
     camara:{
         height:200,
-        borderRadius: '15px'
+        borderRadius: 15,
+        width: 300,
+        marginTop: 40
     },
     image:{
-        height:200
+        height:300,
+        width: 350,
+        marginTop: 40,
+        borderRadius:15
     },
     contenedorCamara:{
         height: 500,
-        textAlign:'center'
+        textAlign:'center',
+        justifyContent:'center',
+        alignItems:'center'
     },
     textos:{
         marginTop: 10,
-        borderWidth: 1,
-        borderColor: '#16A085'
+        marginLeft: 15
+    },
+    contenedorImagen:{
+        alignItems:'center',
+        justifyContent: 'center',
+        textAlign:'center'
+    },
+    vaono:{
+        display:'flex',
+        flexDirection: 'row'
     }
 })
 

@@ -8,12 +8,13 @@ class Profile extends Component{
         super(props)
         this.state = {
             loading: true,
-            posteosPropios: []
+            posteosPropios: [],
+            misDatos: []
         }
     }
 
     componentDidMount(){
-        db.collection('posts').where('owner', '==', auth.currentUser.email).onSnapshot(docs=> {
+        db.collection('posts').where('owner', '==', auth.currentUser.email).orderBy('createdAt', 'desc').onSnapshot(docs=> {
             let posteos = []
             docs.forEach(doc=> {
                 posteos.push({
@@ -25,10 +26,20 @@ class Profile extends Component{
                 posteosPropios: posteos
             })
         })
+        db.collection('users')
+        .where('email', '==', auth.currentUser.email)
+        .onSnapshot(doc => {
+            doc.forEach(doc => this.setState({
+            id: doc.id,
+            misDatos: doc.data()
+            })) 
+        })
     }
 
-    singOut(){
+    cerrarSesion(){
         auth.signOut()
+        .then(resp => this.props.navigation.navigate('Login'))
+        .catch(err=> console.log(err))
     }
 
 /*     <Text style={styles.titulo}>WELCOME, {auth.currentUser.email}</Text>
@@ -36,12 +47,17 @@ class Profile extends Component{
         return(
             <>
             <View style={styles.opciones}>
-                <View style={styles.imagenP}>
-                    <Text>IMG</Text>
-                    <Text>{auth.currentUser.email}</Text>
+                <View style={styles.imageContainer}>
+                    <Image style={styles.imagen} source={{uri: this.state.misDatos.foto}} resizeMod='cover'/>
+                    <Text style={styles.texto}>Posteos: {this.state.posteosPropios.length}</Text>
                 </View>
-                <Text>USERNAME</Text>
-                {console.log(this.props  )}
+                <View style={styles.user}>
+                    <Text style={styles.textoUser}>@{this.state.misDatos.usuario}</Text>
+                    <Text style={styles.texto}>{this.state.misDatos.email}</Text>
+                <View style={styles.bio}>
+                    <Text>Bio: {this.state.misDatos.bio}</Text>
+                </View>
+                </View>
             </View>
             {
                 this.state.posteosPropios > 0 ? 
@@ -65,19 +81,48 @@ const styles = StyleSheet.create({
     opciones:{
         display:'flex',
         flexDirection:'row',
-        justifyContent:'space-between',
-        backgroundColor:'#474747',
-        height:50
+        justifyContent:'space-arround',
+        backgroundColor:'#696969',
+        height:150,
+        alignItems: 'center'
     },  
     logout:{
         color:'red',
         marginRight: 5
     },
     contenedor:{
-        backgroundColor:'#363636',
+        backgroundColor:'#474747',
         flex:1
     },
     titulo:{
         fontSize:20,
+    },
+    imagen:{
+        height: 100,
+        width: 100,
+        borderRadius: 30,
+        marginLeft: 10,
+        marginTop: 5
+    },
+    user:{
+        textAlign:'center',
+        marginLeft: 40
+    },
+    texto:{
+        fontSize: 15
+    },
+    textoUser:{
+        fontSize: 15,
+        fontWeight:'bold'
+    },
+    imageContainer:{
+        textAlign:'center'
+    },
+    textoSingout:{
+        backgroundColor: 'red',
+        color: 'white'
     }
 })
+
+
+//363636 viejo

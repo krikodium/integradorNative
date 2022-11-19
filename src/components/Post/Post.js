@@ -11,7 +11,8 @@ class Post extends Component {
         this.state = {
             isMyLike: false,
             likesCount: props.data.likes.length, 
-            photo: props.data.foto
+            photo: props.data.fotos,
+            commentCount: props.data.comments.length
         }
     }
 
@@ -59,12 +60,10 @@ render() {
     return (
     <View style={styles.container}>
         {console.log(this.props)}
+
         <Image style={styles.fotoPost} source={{uri: this.state.photo}}/>
-        <View style={styles.descripcion}>
-            <Text style={styles.subtitle}>Descripcion:</Text>
-            <Text>{this.props.data.description}</Text>
-        </View>
-        <View>
+        
+        <View style={styles.contenedorComment}>
             <Text style={styles.like}>{
             this.state.isMyLike ?
                 <TouchableOpacity onPress={()=> this.unlike()}>
@@ -74,13 +73,20 @@ render() {
                 <TouchableOpacity onPress={()=> this.like()}>
                     <FontAwesome name='heart-o' color='red' size={32} style={styles.likeBtn}/>
                 </TouchableOpacity>
-        }{this.state.likesCount} </Text>
-        <Text>De: {this.props.data.owner}</Text>
-        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Comments', {id: this.props.id})}>
-            <Text style={styles.propietario}>Agregar comentario</Text>
-        </TouchableOpacity>
+                }  {this.state.likesCount} 
+            </Text>
+            <TouchableOpacity style={styles.commentBtn} onPress={()=> this.props.navigation.navigate('Comments', {id: this.props.id})}>
+                <FontAwesome style={styles.propietario} name='comment-o' size={30} />
+                <Text style={styles.commCount}>{this.state.commentCount}</Text>
+            </TouchableOpacity>
+
         </View>
-        
+        <View style={styles.descripcion}>
+            <Text style={styles.subtitle}>Descripcion:</Text>
+            <Text>{this.props.data.description}</Text>
+        </View>
+        {console.log(this.props)}
+        <Text>De: {this.props.data.owner}</Text>
     </View>
     )
 }
@@ -107,12 +113,24 @@ const styles = StyleSheet.create({
         height: 200,
         borderRadius: '15px'
     },
-    propietario:{
-        marginLeft: 200
+    contenedorComment:{
+        display: 'flex',
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'baseline'
+    },
+    commentBtn:{
+        display:'flex',
+        flexDirection:'row',
+        marginRight: 5
     },
     like:{
         marginTop:10,
         marginBottom:5
+    },
+    commCount:{
+        marginTop: 5,
+        marginLeft: 3
     }
 })
 
