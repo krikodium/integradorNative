@@ -36,11 +36,11 @@ class Profile extends Component{
         })
     }
 
-    cerrarSesion(){
+    /* cerrarSesion(){
         auth.signOut()
         .then(resp => this.props.navigation.navigate('Login'))
         .catch(err=> console.log(err))
-    }
+    } */
 
 /*     <Text style={styles.titulo}>WELCOME, {auth.currentUser.email}</Text>
  */    render(){
@@ -67,7 +67,11 @@ class Profile extends Component{
                 </TouchableOpacity>
                 </View>: 
                 <View style={styles.contenedor}>
-                    <FlatList data={this.state.posteosPropios} keyExtractor={(item)=> item.id.toString()} renderItem={({item})=> <Post navigation={this.props.navigation} id={item.id} data={item.data}/>}/>
+                    <FlatList 
+                        data = {this.state.posteosPropios}
+                        keyExtractor = {(item) => item.id.toString()}
+                        renderItem = {(item) => <Post data={item.item.data} id={item.id} />} 
+                    />
                 </View>
             }
             </>
@@ -121,6 +125,10 @@ const styles = StyleSheet.create({
     textoSingout:{
         backgroundColor: 'red',
         color: 'white'
+    },
+    bio:{
+        overflow: 'scroll',
+        maxWidth: 150
     }
 })
 

@@ -63,8 +63,8 @@ class Search extends Component {
 
 render() {
     return( 
-        <View style={styles.container}>
-            {console.log(this.state.data, this.state.publicaciones)}
+        <View style={styles.contenedor}>
+            {console.log(this.props.data)}
             <View style={styles.contenedorInput}>
                 <TextInput style={styles.input}
                 onChangeText={ text => this.setState( {busqueda:text} )}
@@ -72,7 +72,7 @@ render() {
                 value={this.state.busqueda}>
                 </TextInput>
                 <TouchableOpacity onPress={()=> this.buscar(this.state.busqueda)}>
-                    <FontAwesome name='search' size={32} color='black'/>
+                    <FontAwesome style={styles.icono} name='search' size={30} color='black'/>
                 </TouchableOpacity>
             </View>
 
@@ -80,9 +80,18 @@ render() {
                 data={this.state.users}
                 keyExtractor={(item) => item.id}
                 renderItem= {({item}) => 
-                <View style={styles.contenedor}>
+                <View style={styles.contenedorResultado}>
                     <Image style={styles.imagen} source={{uri:item.data.foto}}/>
-                    <Text style={styles.usuarioTitulo}>{item.data.usuario}</Text>
+
+                    <TouchableOpacity  onPress={()=> this.props.navigation.navigate('UserProfile', {
+                        screen:'UserProfile',
+                        params:{
+                            email: item.data.email
+                        }
+                    })}>
+                        <Text style={styles.usuarioTitulo}>{item.data.usuario}</Text>
+                    </TouchableOpacity>
+
                     
                 </View>}
             /> 
@@ -92,18 +101,18 @@ render() {
 }
 
 const styles = StyleSheet.create({
-container:{
+contenedor:{
     flex: 1,
-    marginTop: 10,
-    marginRight: 10,
-    marginLeft: 10,
+    backgroundColor:"#696969",
 },
 
 input:{
     borderColor: '#ccc',
     borderWidth: 2,
     marginBottom: 5,
-    padding: 10,
+    marginTop:15,
+    marginLeft: 15,
+    padding: 5,
     fontSize: 15,
     borderRadius: 5,
     width: 300,
@@ -121,16 +130,20 @@ imagen:{
     width :60,
     borderRadius: 100
 },
-contenedor: {
+contenedorResultado: {
     borderWidth: 1.5,
     borderColor:'#ccc',
     padding: 6,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    borderRadius:20
 },
 contenedorInput:{
     flexDirection:'row',
     
+},
+icono:{
+    marginTop:15
 }
 
 })

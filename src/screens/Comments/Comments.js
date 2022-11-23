@@ -16,9 +16,7 @@ class Comments extends Component {
     
     componentDidMount(){
         db
-        .collection('posts')
-        .doc(this.state.id) //lo mismo si hago this.props.id
-        .onSnapshot(doc=> {
+        .collection('posts').doc(this.state.id).onSnapshot(doc=> {
             this.setState({
                 data: doc.data(),
                 commentsArr: doc.data().comments

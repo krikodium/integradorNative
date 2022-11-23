@@ -24,6 +24,8 @@ class Posts extends Component {
             comments:[],
             fotos: this.state.fotoUrl
         })
+        .then(()=> this.props.navigation.navigate('Home'))
+        .catch((err)=> console.log(err))
     }
 
     cuandoSubaLaFoto(url){

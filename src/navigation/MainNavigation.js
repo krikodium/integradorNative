@@ -9,6 +9,7 @@ import TabNavigation from './TabNavigation'
 import { auth } from "../firebase/config";
 import Comments from '../screens/Comments/Comments'
 import Home from "../screens/Home/Home";
+import UserProfile from "../screens/UserProfile/UserProfile";
 
 const Stack = createNativeStackNavigator()
 
@@ -29,6 +30,7 @@ class MainNavigation extends Component{
                     <Stack.Screen name="TabNavigation" component={TabNavigation} options={{headerShown: false}}/>
                     <Stack.Screen name="Comments" component={Comments}/>
                     <Stack.Screen name="Home" component={Home}/>
+                    <Stack.Screen name = 'UserProfile' component={UserProfile} />
                 </Stack.Navigator>
             </NavigationContainer>
         )

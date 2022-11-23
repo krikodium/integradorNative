@@ -59,7 +59,7 @@ class Post extends Component {
 render() {
     return (
     <View style={styles.container}>
-        {console.log(this.props)}
+        {console.log(this.props.data)}
 
         <Image style={styles.fotoPost} source={{uri: this.state.photo}}/>
         
@@ -85,8 +85,16 @@ render() {
             <Text style={styles.subtitle}>Descripcion:</Text>
             <Text>{this.props.data.description}</Text>
         </View>
-        {console.log(this.props)}
-        <Text>De: {this.props.data.owner}</Text>
+
+        <TouchableOpacity onPress={()=> this.props.navigation.navigate('UserProfile', {
+            screen:'UserProfile',
+            params:{
+                email: this.props.data.owner
+            }
+        })}>
+            <Text>De: {this.props.data.owner}</Text>
+        </TouchableOpacity>
+
     </View>
     )
 }
