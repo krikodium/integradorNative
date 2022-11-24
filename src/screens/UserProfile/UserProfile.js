@@ -48,7 +48,7 @@ class UserProfile extends Component{
     render(){
         return(
             <>
-            {console.log(this.state.usuario, this.state.id, this.state.datosUsuario, this.state.posts)}
+            {console.log( this.state.datosUsuario)}
             {
                 this.state.loading ? 
                 <ActivityIndicator size={32} color='red'/> : 
@@ -56,7 +56,7 @@ class UserProfile extends Component{
                 <View style={styles.opciones}>
                     <View style={styles.imageContainer}>
                         <Image style={styles.imagen} source={{uri: this.state.datosUsuario.foto}} resizeMode='cover'/>
-                        <Text style={styles.texto}>Posteos: </Text>
+                        <Text style={styles.texto}>Posteos: {this.state.posts.length}</Text>
                     </View>
                     <View style={styles.user}>
                         <Text style={styles.textoUser}>@{this.state.datosUsuario.usuario}</Text>

@@ -1,7 +1,6 @@
 import { Text, View, StyleSheet, TextInput, TouchableOpacity,  FlatList, Image} from 'react-native'
 import React, { Component } from 'react'
 import { auth, db } from '../../firebase/config'
-import {SearchBar } from 'react-native'
 import {FontAwesome} from '@expo/vector-icons'
 class Search extends Component {
     constructor(props){
@@ -153,10 +152,3 @@ export default Search;
 
 
 
-{/* <TouchableOpacity onPress={()=> this.props.navigation.navigate('HomeNavigation', {
-                    screen: 'UsersProfile',
-                    params:{
-                    email: item.data.email
-                }})}>
-                <Text style={styles.textUser}>{item.data.usuario}</Text>
-                </TouchableOpacity>  */}

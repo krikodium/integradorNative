@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import {Camera} from 'expo-camera'
 import {storage} from '../../firebase/config'
 import {FontAwesome} from '@expo/vector-icons'
+import * as ImagePicker from 'expo-image-picker';
 class Camara extends Component {
     constructor(props){
         super(props)
@@ -53,6 +54,26 @@ class Camara extends Component {
         })   //falt terminar para rechzar foto
     }
 
+    elegirImagen(){
+        ImagePicker.launchImageLibraryAsync()
+        .then(resp => {
+            fetch(resp.uri)
+            .then(data => data.blob())
+            .then(image => {
+                const ref = storage.ref(`fotos/${Date.now()}.jpg`)
+                ref.put(image)
+                .then(()=> {
+                    ref.getDownloadURL()
+                    .then(url => {
+                        this.props.cuandoSubaLaFoto(url)
+                    })
+                    .then(this.setState({mostrarCamara:false}))
+                })
+            })
+            .catch(err => console.log(err))
+        })
+        .catch(err => console.log(err))
+    }
     
 
 render() {
@@ -71,6 +92,11 @@ render() {
                 <TouchableOpacity onPress={()=> this.tomarFoto()}>
                     <FontAwesome style={styles.textos} name='camera' size={32} color='black'/>
                 </TouchableOpacity>
+                <View>
+                        <TouchableOpacity onPress={()=> this.elegirImagen()}>
+                            <Text style={styles.fotoPerfil}>Elegi imagen del dispositivo.</Text>
+                        </TouchableOpacity>
+                </View>
             </View>
             
             : this.state.mostrarCamara === false && this.state.fotoUri !== '' ?

@@ -36,17 +36,20 @@ class Profile extends Component{
         })
     }
 
-    /* cerrarSesion(){
+    cerrarSesion(){
         auth.signOut()
         .then(resp => this.props.navigation.navigate('Login'))
         .catch(err=> console.log(err))
-    } */
+    }
 
 /*     <Text style={styles.titulo}>WELCOME, {auth.currentUser.email}</Text>
  */    render(){
         return(
             <>
             <View style={styles.opciones}>
+                {/* <TouchableOpacity onPress={this.cerrarSesion()}>
+                    <Text>hol   </Text>
+                </TouchableOpacity> */}
                 <View style={styles.imageContainer}>
                     <Image style={styles.imagen} source={{uri: this.state.misDatos.foto}} resizeMod='cover'/>
                     <Text style={styles.texto}>Posteos: {this.state.posteosPropios.length}</Text>

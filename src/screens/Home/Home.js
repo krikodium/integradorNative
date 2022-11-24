@@ -1,6 +1,6 @@
 import { Text, View, FlatList, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
-import {db, auth} from '../../firebase/config' //base de dat
+import {db} from '../../firebase/config' //base de dat
 import Post from '../../components/Post/Post'
 
 class Home extends Component{
